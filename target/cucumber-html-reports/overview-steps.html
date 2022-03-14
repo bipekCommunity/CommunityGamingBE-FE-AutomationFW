@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.tablesorter.min.js"></script>
+<script src="js/Chart.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/cucumber.css" type="text/css"/>
+<link rel="stylesheet" href="css/font-awesome.min.css"/>
+<link rel="shortcut icon" href="images/favicon.png"/>
+
+<script>
+$(document).ready(function() {
+    // this will tell tablesorter to try looking for the data-value attribute
+    // if present, it'll sort by that instead
+    // otherwise, it'll sort by the text content of the table cell
+    $("#tablesorter").tablesorter({
+        textAttribute: 'data-value',
+        // ignores the first row of the header, the 'scenario', 'steps', since
+        // sorting those doesn't make sense
+        selectorHeaders: '> thead tr:not(.dont-sort) th',
+        // use a stable sort
+        sortStable: true
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<title>Cucumber Reports  - Steps Overview</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <p class="navbar-text navbar-left">Cucumber Report</p>
+      <ul class="nav navbar-nav navbar-right">
+        <li role="presentation" ><a href="overview-features.html">Features</a></li>
+        <li role="presentation" ><a href="overview-tags.html">Tags</a></li>
+        <li role="presentation"     class="active" ><a href="overview-steps.html">Steps</a></li>
+        <li role="presentation" ><a href="overview-failures.html">Failures</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="col-md-5 col-md-offset-1">
+
+<table class="table table-bordered" id="build-info">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>No Name (add projectName to cucumber-reporting.properties)</td>
+      <td>14 Mar 2022, 18:45</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+  <div class="col-md-3 col-md-offset-2">
+  </div>
+</div>
+
+
+<div id="report-lead" class="container-fluid">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>Steps Statistics</h2>
+      <p>The following graph shows step statistics for this build. Below list is based on results.
+ step does not provide information about result then is not listed below.
+ Additionally @Before and @After are not counted because they are part of the scenarios, not steps.</p>
+  </div>
+</div>
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table id="tablesorter" class="stats-table table-hover">
+
+        <thead>
+          <tr class="header">
+            <th>Implementation</th>
+            <th>Occurrences</th>
+            <th>Average duration</th>
+            <th>Max duration</th>
+            <th>Total durations</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.response_should_be(java.lang.String)</td>
+              <td>1</td>
+              <td class="duration" data-value="21000000">0.021</td>
+              <td class="duration" data-value="21000000">0.021</td>
+              <td class="duration" data-value="21000000">0.021</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.satus_Code_Should_be(int)</td>
+              <td>3</td>
+              <td class="duration" data-value="666666">0.000</td>
+              <td class="duration" data-value="666666">0.001</td>
+              <td class="duration" data-value="2000000">0.002</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_re_enters_old_password()</td>
+              <td>1</td>
+              <td class="duration" data-value="1199000000">1.199</td>
+              <td class="duration" data-value="1199000000">1.199</td>
+              <td class="duration" data-value="1199000000">1.199</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_send_request_for_change_password()</td>
+              <td>1</td>
+              <td class="duration" data-value="2041000000">2.041</td>
+              <td class="duration" data-value="2041000000">2.041</td>
+              <td class="duration" data-value="2041000000">2.041</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_send_request_for_latest_quests()</td>
+              <td>1</td>
+              <td class="duration" data-value="908000000">0.908</td>
+              <td class="duration" data-value="908000000">0.908</td>
+              <td class="duration" data-value="908000000">0.908</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_should_get_message(java.lang.String)</td>
+              <td>8</td>
+              <td class="duration" data-value="14375000">0.014</td>
+              <td class="duration" data-value="14375000">0.016</td>
+              <td class="duration" data-value="115000000">0.115</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_should_not_be_able_to_login_with_old_password()</td>
+              <td>1</td>
+              <td class="duration" data-value="937000000">0.937</td>
+              <td class="duration" data-value="937000000">0.937</td>
+              <td class="duration" data-value="937000000">0.937</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_sign_in_with_new_password()</td>
+              <td>1</td>
+              <td class="duration" data-value="976000000">0.976</td>
+              <td class="duration" data-value="976000000">0.976</td>
+              <td class="duration" data-value="976000000">0.976</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_sign_in_with_valid_credentials(java.lang.String,java.lang.String)</td>
+              <td>11</td>
+              <td class="duration" data-value="1267272727">1.267</td>
+              <td class="duration" data-value="1267272727">2.924</td>
+              <td class="duration" data-value="13940000000">13.940</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_sign_in_with_valid_credentials_new_password()</td>
+              <td>1</td>
+              <td class="duration" data-value="1008000000">1.008</td>
+              <td class="duration" data-value="1008000000">1.008</td>
+              <td class="duration" data-value="1008000000">1.008</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_sign_in_with_valid_credentials_to_dev_environment(java.lang.String,java.lang.String)</td>
+              <td>4</td>
+              <td class="duration" data-value="5520000000">5.520</td>
+              <td class="duration" data-value="5520000000">11.055</td>
+              <td class="duration" data-value="22080000000">22.080</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_try_to_sign_in_invalid_password(java.lang.String,java.lang.String)</td>
+              <td>4</td>
+              <td class="duration" data-value="1034500000">1.034</td>
+              <td class="duration" data-value="1034500000">1.172</td>
+              <td class="duration" data-value="4138000000">4.138</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Login_stepdef.user_try_to_sign_in_invalid_user_name(java.lang.String,java.lang.String)</td>
+              <td>4</td>
+              <td class="duration" data-value="868250000">0.868</td>
+              <td class="duration" data-value="868250000">0.891</td>
+              <td class="duration" data-value="3473000000">3.473</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.admin_search_for_deleted_quest_should_get_not_found_message()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.admin_should_be_able_to_create_new_quest_for_test_environment()</td>
+              <td>2</td>
+              <td class="duration" data-value="905500000">0.905</td>
+              <td class="duration" data-value="905500000">0.921</td>
+              <td class="duration" data-value="1811000000">1.811</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.admin_should_be_able_to_delete_quest()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.admin_should_get_quest_name_cannot_be_same_already_created_quest_message()</td>
+              <td>1</td>
+              <td class="duration" data-value="11000000">0.011</td>
+              <td class="duration" data-value="11000000">0.011</td>
+              <td class="duration" data-value="11000000">0.011</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.admin_try_to_create_same_quest_again()</td>
+              <td>1</td>
+              <td class="duration" data-value="889000000">0.889</td>
+              <td class="duration" data-value="889000000">0.889</td>
+              <td class="duration" data-value="889000000">0.889</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.quest_id_should_be_created()</td>
+              <td>1</td>
+              <td class="duration" data-value="1000000">0.001</td>
+              <td class="duration" data-value="1000000">0.001</td>
+              <td class="duration" data-value="1000000">0.001</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.user_should_get_cannot_delete_active_quest_message()</td>
+              <td>1</td>
+              <td class="duration" data-value="14000000">0.014</td>
+              <td class="duration" data-value="14000000">0.014</td>
+              <td class="duration" data-value="14000000">0.014</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.user_should_get_start_date_cannot_be_before_tomorrow()</td>
+              <td>1</td>
+              <td class="duration" data-value="13000000">0.013</td>
+              <td class="duration" data-value="13000000">0.013</td>
+              <td class="duration" data-value="13000000">0.013</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.user_try_to_create_quest_with_today()</td>
+              <td>1</td>
+              <td class="duration" data-value="836000000">0.836</td>
+              <td class="duration" data-value="836000000">0.836</td>
+              <td class="duration" data-value="836000000">0.836</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Quests_stepdef.user_try_to_delete_active_quest()</td>
+              <td>1</td>
+              <td class="duration" data-value="829000000">0.829</td>
+              <td class="duration" data-value="829000000">0.829</td>
+              <td class="duration" data-value="829000000">0.829</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.added_team_id_should_deleted_from_participant_id_list()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.participant_ids_should_include_added_team_id()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.tournament_approval_should(java.lang.String)</td>
+              <td>1</td>
+              <td class="duration" data-value="25000000">0.025</td>
+              <td class="duration" data-value="25000000">0.025</td>
+              <td class="duration" data-value="25000000">0.025</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_post_CreateTournament_With_Multiple_Brackets()</td>
+              <td>2</td>
+              <td class="duration" data-value="2672000000">2.672</td>
+              <td class="duration" data-value="2672000000">4.373</td>
+              <td class="duration" data-value="5344000000">5.344</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_post_CreateTournament_With_Multiple_Brackets_for_Dev_Environment()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_send_request_for_past_tournament_detail_id(java.lang.String)</td>
+              <td>1</td>
+              <td class="duration" data-value="951000000">0.951</td>
+              <td class="duration" data-value="951000000">0.951</td>
+              <td class="duration" data-value="951000000">0.951</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_send_request_for_unenroll_from_tournament()</td>
+              <td>1</td>
+              <td class="duration" data-value="1109000000">1.109</td>
+              <td class="duration" data-value="1109000000">1.109</td>
+              <td class="duration" data-value="1109000000">1.109</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_send_request_for_upcoming_tournament()</td>
+              <td>1</td>
+              <td class="duration" data-value="2808000000">2.808</td>
+              <td class="duration" data-value="2808000000">2.808</td>
+              <td class="duration" data-value="2808000000">2.808</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_should_be_able_to_see_participants()</td>
+              <td>1</td>
+              <td class="duration" data-value="34000000">0.034</td>
+              <td class="duration" data-value="34000000">0.034</td>
+              <td class="duration" data-value="34000000">0.034</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_should_get_Bracket_is_empty_message()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Tournament_stepdef.user_try_to_start_tournament()</td>
+              <td>1</td>
+              <td class="duration" data-value="910000000">0.910</td>
+              <td class="duration" data-value="910000000">0.910</td>
+              <td class="duration" data-value="910000000">0.910</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.organized_tournament_count_should_be_an_increase()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.organizer_send_a_request_for_registration_question()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.organizer_should_be_able_to_see_registration_answers()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.participant_send_a_request_for_registration_question()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.participant_should_be_able_to_see_registration_answers()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.teams_count_should_be_an_increase()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.user_post_request_for_create_a_team()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.user_send_a_request_for_registration_question()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.user_should_be_able_to_see_personal_information_data()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.user_should_be_able_to_send_request_for_user_information()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.Users_stepdef.user_should_not_be_able_to_see_registration_answers()</td>
+              <td>1</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="duration" data-value="0">0.000</td>
+              <td class="failed">0.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.stepdef.click_sometihng()</td>
+              <td>1</td>
+              <td class="duration" data-value="700000000">0.700</td>
+              <td class="duration" data-value="700000000">0.700</td>
+              <td class="duration" data-value="700000000">0.700</td>
+              <td class="passed">100.00%</td>
+            </tr>
+            <tr>
+              <td class="location">io.community.step_deffinitions.stepdef.openbrowser()</td>
+              <td>1</td>
+              <td class="duration" data-value="11296000000">11.296</td>
+              <td class="duration" data-value="11296000000">11.296</td>
+              <td class="duration" data-value="11296000000">11.296</td>
+              <td class="passed">100.00%</td>
+            </tr>
+        </tbody>
+
+        <tfoot class="total">
+          <tr>
+            <td>47</td>
+            <td>77</td>
+            <td class="duration">1.018</td>
+            <td class="duration">22.080</td>
+            <td class="duration">1:18.419</td>
+            <td>Totals</td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-default" id="footer">
+  <div class="container-fluid">
+    <p class="navbar-text navbar-right">
+        <small>generate Cucumber HTML reports via:&nbsp;</small>
+        <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Standalone</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-sandwich">Sandwich</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/maven-cucumber-reporting">Maven</a>
+        &nbsp;&nbsp;
+    </p>
+  </div>
+</nav>
+
+</body>
+</html>
