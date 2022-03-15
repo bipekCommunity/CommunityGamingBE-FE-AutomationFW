@@ -60,7 +60,7 @@ public class Quests_stepdef {
 
     @When("user try to delete active quest")
     public void user_try_to_delete_active_quest() {
-        String request="{\"query\":\"mutation{\\n\\tdeleteQuest(\\n\\t\\tquestId: \\\"c754ead3-7813-4397-8b1b-d09429d4807b\\\"\\n\\t)\\n}\"}";
+        String request="{\"query\":\"mutation{\\n\\tdeleteQuest(\\n\\t\\tquestId: \\\"5d7aba3b-ce70-4fba-b073-b1e7d822c16b\\\"\\n\\t)\\n}\"}";
         response=ApiUtils.request(ConfigurationReader.get("testURI"),request);
         jsonPath=response.jsonPath();
         System.out.println(response.prettyPrint());

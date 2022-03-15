@@ -32,7 +32,7 @@ Feature: Tournament Tests
      Then  user should be able to see participants
      And   tournament approval should "false"
 
-     @wip
+     @wip44
      Scenario: UItest
        Given openbrowser
        Then  click sometihng
