@@ -23,6 +23,7 @@ public class Tournament_stepdef {
     String singleTournamentID=null;
     String singleBracketID=null;
     String singleBracketMatchID=null;
+    String mrbrooks2Rewards=null;
 
 
 
@@ -125,7 +126,7 @@ public class Tournament_stepdef {
     @Given("organizer create tournament with single elemination")
     public void organizer_create_tournament_with_single_elemination() {
         String alias= faker.name().firstName()+ApiUtils.date();
-        String request ="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+alias+"\\\"\\n    bracketType: SINGLE_ELIMINATION\\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: 1\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2022-11-19T21:59:08.454Z\\\"\\n    name: \\\"CreatedForRewardCheckOnAPI\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"cs_go\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 10\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t  maxTeams: 30, \\n    bracketList: [\\n    {\\n        bracketName: \\\"testBrk\\\",\\n        bracketStartDate: \\\"2022-03-16T21:59:08.454Z\\\",\\n        bracketType: SINGLE_ELIMINATION,\\n        maxParticipantCount: 8,\\n        isSelfReportAllowed: true,\\n\\t\\t\\t\\n    }\\n\\t\\t]\\n  }) {\\n    id\\n\\t\\tbracketType\\n\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t}\\n  }\\n}\"}";
+        String request ="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+alias+"\\\"\\n    bracketType: SINGLE_ELIMINATION\\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: 1\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2022-11-19T21:59:08.454Z\\\"\\n    name: \\\"CreatedForRewardCheckOnAPI\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"cs_go\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 100\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t  maxTeams: 30, \\n    bracketList: [\\n    {\\n        bracketName: \\\"testBrk\\\",\\n        bracketStartDate: \\\"2022-03-16T21:59:08.454Z\\\",\\n        bracketType: SINGLE_ELIMINATION,\\n        maxParticipantCount: 8,\\n        isSelfReportAllowed: true,\\n\\t\\t\\t\\n    }\\n\\t\\t]\\n  }) {\\n    id\\n\\t\\tbracketType\\n\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t}\\n  }\\n}\"}";
 
         response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
         System.out.println(response.prettyPrint());
@@ -185,6 +186,33 @@ public class Tournament_stepdef {
         response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
         System.out.println(response.prettyPrint());
     }
+
+    @When("user get rewards")
+    public void user_get_rewards() {
+       String request="{\"query\":\"query {\\n  getRewardsByUser(userId: \\\"6611e97e-1048-439b-9f53-9cd3505af2a1\\\") {\\n rewards{\\n\\tdate\\n\\tgame{\\n\\t\\tid\\n\\t\\tname\\n\\t\\turl\\n\\t\\t\\n\\t}\\n\\tposition\\n\\treward{\\n\\t\\tid\\n\\t}\\n}\\n    \\n  }\\n}\"}";
+        response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
+        jsonPath = response.jsonPath();
+
+        System.out.println(response.prettyPrint());
+        String rewardid= jsonPath.getString("data.getRewardsByUser.rewards.reward.id");
+
+        mrbrooks2Rewards=rewardid.substring(2,38);
+        System.out.println("mrbrooks2Rewards = " + mrbrooks2Rewards);
+
+    }
+    @When("user claim off chain reward")
+    public void user_claim_off_chain_reward() {
+        System.out.println("test");
+        String request="{\"query\":\"mutation{\\n\\tclaimOffChainTournamentReward(\\n\\t\\trewardId:\\\""+mrbrooks2Rewards+"\\\"\\n\\t\\tpaypalId: \\\"213123121212123\\\"\\n\\t\\t\\t)\\n\\n\\t\\n}\\n\"}";
+
+        response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
+        jsonPath = response.jsonPath();
+
+        System.out.println(response.prettyPrint());
+        Assert.assertTrue(jsonPath.getString("data.claimOffChainTournamentReward").contains("true"));
+    }
+
+
 
 
 

@@ -27,7 +27,7 @@ Feature: Quests
     When  admin try to create same quest again
     Then  admin should get Quest name cannot be same already created quest message
 
-  @smoke @positive @wip11
+  @smoke @positive
   Scenario:Giving the Claim Right to Users CGB-387
     Given user sign in with valid credentials "mrbrooks2" "Test1234"
     And   admin create new quest for test environment

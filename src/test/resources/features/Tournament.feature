@@ -32,7 +32,7 @@ Feature: Tournament Tests
      Then  user should be able to see participants
      And   tournament approval should "false"
 
-     @wip @reg
+     @wip @reg @e2e
    Scenario: Tournament E2E Test
      Given user sign in with valid credentials "mrbrooks2" "Test1234"
      And   organizer create tournament with single elemination
@@ -44,6 +44,10 @@ Feature: Tournament Tests
      And   organizer starts tournament
      And   organizer enters score
      And   organizer ends tournament
+     ## used mrbrooks2 id
+     When user get rewards
+     Then  user claim off chain reward
+
 
 
 
