@@ -34,7 +34,7 @@ Feature: Login Page's Tests
     When User send request for my profile request
     Then Status Code Should be 200
 
-  @wip
+
   Scenario: User should be able to change password
     Given user sign in with valid credentials new password
     When user send request for Change Password

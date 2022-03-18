@@ -32,7 +32,19 @@ Feature: Tournament Tests
      Then  user should be able to see participants
      And   tournament approval should "false"
 
-     @wip44
-     Scenario: UItest
-       Given openbrowser
-       Then  click sometihng
+     @wip @reg
+   Scenario: Tournament E2E Test
+     Given user sign in with valid credentials "mrbrooks2" "Test1234"
+     And   organizer create tournament with single elemination
+     And   Add participant mrbrooks2
+     And   user sign in with valid credentials "mrbrooks" "Test1234"
+     And   Add participant mrbrooks
+     And   user sign in with valid credentials "mrbrooks2" "Test1234"
+     And   organizer generates bracket
+     And   organizer starts tournament
+     And   organizer enters score
+     And   organizer ends tournament
+
+
+
+

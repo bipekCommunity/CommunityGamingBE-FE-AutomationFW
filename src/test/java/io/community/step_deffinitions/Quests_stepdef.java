@@ -3,6 +3,7 @@ import com.github.javafaker.Faker;
 import io.community.utilities.ApiUtils;
 import io.community.utilities.ConfigurationReader;
 import io.cucumber.java.en.*;
+import io.cucumber.java.it.Ma;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -108,6 +109,37 @@ public class Quests_stepdef {
       Assert.assertTrue(jsonPath.getString("errors.message").contains("Quest name cannot be same already created quest"));
     }
 
+    @Given("admin create new quest for test environment")
+    public void admin_create_new_quest_for_test_environment() {
+        LocalDate date=LocalDate.now();
+        LocalDate tomorrow =date.plusDays(1);
+        DateTimeFormatter dateTimeFormatter
+                =DateTimeFormatter.ofPattern("YYYY-MM-dd");
+        String startDate= dateTimeFormatter.format(tomorrow);
+
+
+        String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\"CreatedForDailReward"+startDate+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2055-01-01T00:00:08.454Z\\\",\\n\\t\\t\\ttype: STANDARD,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  for reward check\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
+        response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
+        System.out.println(response.prettyPrint());
+
+    }
+
+    @Then("completed quest' reward should be able shown in getUserQuestRewards")
+    public void completed_quest_reward_should_be_able_shown_in_get_user_quest_rewards() {
+
+        String request="{\"query\":\"query{\\n\\tgetUserQuestRewards{\\n\\t\\tquestId\\n\\t\\trewards{\\n\\t\\t\\tclaimedAt\\n\\t\\t\\tstatus\\n\\t\\t\\tname\\n\\t\\t}\\n\\t\\ttotalAmount\\n\\t}\\n\\t\\t\\n\\t\\t\\n\\t\\n\\n}\"}";
+        LocalDate date=LocalDate.now();
+        DateTimeFormatter dateTimeFormatter
+                =DateTimeFormatter.ofPattern("YYYY-MM-dd");
+        String startDate= dateTimeFormatter.format(date);
+       response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
+       jsonPath=response.jsonPath();
+        System.out.println(response.prettyPrint());
+
+        Assert.assertTrue(jsonPath.getString("data.getUserQuestRewards.rewards.name").contains("CreatedForDailReward"+startDate));
+
+
+    }
 
 
 
