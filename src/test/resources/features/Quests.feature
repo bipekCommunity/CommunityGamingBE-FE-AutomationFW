@@ -1,6 +1,6 @@
 Feature: Quests
 
-  @reg @positive
+  @reg @positive @logg
   Scenario: Organizer should be able to create new quest end delete quest (passive quest)- test env
     Given user sign in with valid credentials "mrbrooks2" "Test1234"
     When  admin should be able to create new quest for test environment

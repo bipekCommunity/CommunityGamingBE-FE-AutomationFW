@@ -6,8 +6,9 @@ import io.community.utilities.ConfigurationReader;
 import io.cucumber.java.en.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
-
+@Slf4j
 public class Users_stepdef {
     Response response=null;
     JsonPath jsonPath=null;
@@ -20,7 +21,8 @@ public class Users_stepdef {
      String request="{\"query\":\"query{\\n\\tgetAdditionalUserInformation{\\n\\t\\taverageTeamSize\\n\\t\\tteamsCount\\n\\t\\tfavouriteGamesCount\\n\\t\\tjoinedTournamentCount\\n\\t\\torganizedTournamentCount\\n\\t}\\n}\"}";
      response= ApiUtils.request(ConfigurationReader.get("devURI"),request);
      jsonPath=response.jsonPath();
-        System.out.println("userInformation= " +response.prettyPrint());
+      log.info("userInformation= " +response.prettyPrint());
+
 
     }
     @Then("user should be able to see personal information data")
@@ -70,7 +72,8 @@ public class Users_stepdef {
 
       response= ApiUtils.request(ConfigurationReader.get("devURI"),request);
       jsonPath=response.jsonPath();
-      System.out.println("registration answers= " + jsonPath.getString("data.getRegistrationQuestionsResponses.responses"));
+      log.info("registration answers= " + jsonPath.getString("data.getRegistrationQuestionsResponses.responses"));
+
 
     }
     @Then("organizer should be able to see registration answers")
@@ -84,7 +87,8 @@ public class Users_stepdef {
 
         response= ApiUtils.request(ConfigurationReader.get("devURI"),request);
         jsonPath=response.jsonPath();
-        System.out.println("registration answers= " + jsonPath.getString("data.getRegistrationQuestionsResponses.responses"));
+        log.info("registration answers= " + jsonPath.getString("data.getRegistrationQuestionsResponses.responses"));
+
 
 
     }
@@ -98,7 +102,7 @@ public class Users_stepdef {
 
         response= ApiUtils.request(ConfigurationReader.get("devURI"),request);
         jsonPath=response.jsonPath();
-        System.out.println("registration answers= " + jsonPath.getString("data.getRegistrationQuestionsResponses.responses"));
+        log.info("registration answers= " + jsonPath.getString("data.getRegistrationQuestionsResponses.responses"));
 
     }
     @Then("user should  be able to see registration answers")

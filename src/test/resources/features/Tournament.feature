@@ -32,9 +32,9 @@ Feature: Tournament Tests
      Then  user should be able to see participants
      And   tournament approval should "false"
 
-     @wip @reg @e2e
-   Scenario: Tournament E2E Test
-     Given user sign in with valid credentials "mrbrooks2" "Test1234"
+      @reg @e2e
+   Scenario: Tournament E2E Test CGB-435 CGB-433 CGB-434
+       Given user sign in with valid credentials "mrbrooks2" "Test1234"
      And   organizer create tournament with single elemination
      And   Add participant mrbrooks2
      And   user sign in with valid credentials "mrbrooks" "Test1234"
@@ -47,6 +47,29 @@ Feature: Tournament Tests
      ## used mrbrooks2 id
      When user get rewards
      Then  user claim off chain reward
+
+
+  @reg @positive @wip
+  Scenario: Listing Tournament CGB-440 CGB-439 CGB-438
+    Given user sign in with valid credentials "mrbrooks2" "Test1234"
+    And   organizer create tournament with single elemination
+    Then  tournament should list in upcoming tournament
+    And   tournament should not list in progress tournament
+    And   tournament should not list in completed tournament
+    And   Add participant mrbrooks2
+    And   user sign in with valid credentials "mrbrooks" "Test1234"
+    And   Add participant mrbrooks
+    And   user sign in with valid credentials "mrbrooks2" "Test1234"
+    And   organizer generates bracket
+    When  organizer starts tournament
+    Then  tournament should list in progress tournament
+    And   tournament should not list in upcoming tournament
+    And   tournament should not list in completed tournament
+    When  organizer enters score
+    When  organizer ends tournament
+    Then  tournament should list in completed tournament
+    And   tournament should not list in progress tournament
+    And   tournament should not list in upcoming tournament
 
 
 

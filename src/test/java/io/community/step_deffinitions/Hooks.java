@@ -12,7 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Hooks {
 
+    private Scenario scenario;
 
+
+    
 
     @Before("@ui")
     public void setUp(){

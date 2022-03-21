@@ -1,5 +1,6 @@
 package io.community.step_deffinitions;
 
+
 import io.community.utilities.ApiUtils;
 import io.community.utilities.ConfigurationReader;
 import io.cucumber.java.en.Given;
@@ -8,16 +9,12 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
-
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static io.restassured.RestAssured.*;
 
-
+@Slf4j
 public class Login_stepdef {
   public static   String token ="";
     Response response;
@@ -34,6 +31,7 @@ public class Login_stepdef {
                 .post(ConfigurationReader.get("testURI"));
         jsonPath =response.jsonPath();
         token= jsonPath.getString("data.signInUser.accessToken");
+            log.info("accessToken "+token);
 
 
     }
@@ -45,7 +43,8 @@ public class Login_stepdef {
                 .post(ConfigurationReader.get("devURI"));
         jsonPath =response.jsonPath();
         token= jsonPath.getString("data.signInUser.accessToken");
-        System.out.println("token = " + token);
+
+        log.info("accessToken "+token);
     }
 
 
@@ -62,7 +61,8 @@ public class Login_stepdef {
                 "Bearer "+token,
                 "Content-Type", "application/json").body(requestInformation).when().post(ConfigurationReader.get("testURI"));
 
-        System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
+
+        log.info(response.body().prettyPrint());
 
     }
     @Given("user try to sign in invalid userName {string} {string}")
@@ -70,7 +70,8 @@ public class Login_stepdef {
         String body="{\"query\":\"query {\\n  signInUser(username: \\\""+username+"\\\", password: \\\""+password+"\\\") {\\n    accessToken\\n  }\\n}\\n\\n\"}";
         response = given().accept(ContentType.JSON).body(body).when()
                 .post(ConfigurationReader.get("testURI"));
-        System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
+
+        log.info(response.body().prettyPrint());
     }
 
 
@@ -81,7 +82,8 @@ public class Login_stepdef {
         jsonPath =response.jsonPath();
        String actualResult= jsonPath.getString("errors.message");
        Assert.assertTrue(actualResult.contains(expectedResult));
-        System.out.println("actualResult = " + actualResult);
+
+        log.info("actualResult = " + actualResult);
     }
 
     @Given("user try to sign in invalid password {string} {string}")
@@ -89,7 +91,8 @@ public class Login_stepdef {
         String body="{\"query\":\"query {\\n  signInUser(username: \\\""+username+"\\\", password: \\\""+password+"\\\") {\\n    accessToken\\n  }\\n}\\n\\n\"}";
         response = given().accept(ContentType.JSON).body(body).when()
                 .post(ConfigurationReader.get("testURI"));
-        System.out.println("response.body().prettyPrint() = " + response.body().prettyPrint());
+
+        log.info(response.body().prettyPrint());
     }
 
 
@@ -118,7 +121,7 @@ public class Login_stepdef {
     }
     @Then("response should be {string}")
     public void response_should_be(String expectedResult) {
-        System.out.println("updateMyPassword= " + jsonPath.getString("data.updateMyPassword"));
+       log.info("updateMyPassword= " + jsonPath.getString("data.updateMyPassword"));
         Assert.assertEquals(jsonPath.getString("data.updateMyPassword"),expectedResult);
     }
     @Then("user should not be able to login with old password")

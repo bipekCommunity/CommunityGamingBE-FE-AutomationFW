@@ -1,15 +1,18 @@
 package io.community.step_deffinitions;
 import com.github.javafaker.Faker;
+
 import io.community.utilities.ApiUtils;
 import io.community.utilities.ConfigurationReader;
 import io.cucumber.java.en.*;
 import io.cucumber.java.it.Ma;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 public class Quests_stepdef {
     Response response=null;
     JsonPath jsonPath=null;
@@ -32,8 +35,7 @@ public class Quests_stepdef {
        jsonPath=response.jsonPath();
         System.out.println(response.prettyPrint());
         questID=jsonPath.getString("data.createQuest.id");
-        System.out.println("questID= "+questID);
-
+        log.info("questID "+questID);
     }
     @Then("Quest id should be created")
     public void quest_id_should_be_created() {
@@ -53,9 +55,10 @@ public class Quests_stepdef {
 
       response=  ApiUtils.request(ConfigurationReader.get("testURI"),request);
         jsonPath =response.jsonPath();
-        System.out.println(response.prettyPrint());
-        System.out.println(jsonPath.getString("errors.message"));
+
         Assert.assertTrue(jsonPath.getString("errors.message").contains("not Found"));
+            log.info(response.prettyPrint());
+            log.info(jsonPath.getString("errors.message"));
 
     }
 
@@ -64,8 +67,7 @@ public class Quests_stepdef {
         String request="{\"query\":\"mutation{\\n\\tdeleteQuest(\\n\\t\\tquestId: \\\"5d7aba3b-ce70-4fba-b073-b1e7d822c16b\\\"\\n\\t)\\n}\"}";
         response=ApiUtils.request(ConfigurationReader.get("testURI"),request);
         jsonPath=response.jsonPath();
-        System.out.println(response.prettyPrint());
-
+        log.info(response.prettyPrint());
     }
     @Then("user should get Cannot delete active quest message")
     public void user_should_get_cannot_delete_active_quest_message() {
@@ -79,11 +81,10 @@ public class Quests_stepdef {
         DateTimeFormatter dateTimeFormatter
                 =DateTimeFormatter.ofPattern("YYYY-MM-dd");
         String startDate= dateTimeFormatter.format(date);
-        System.out.println(startDate);
         String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\"Tek Sef2erlik Quest\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2050-03-28T00:00:08.454Z\\\",\\n\\t\\t\\ttype: SPONSORED,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  standard 111 day\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
         response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
         jsonPath=response.jsonPath();
-        System.out.println(response.prettyPrint());
+        log.info(response.prettyPrint());
 
 
     }
@@ -102,7 +103,7 @@ public class Quests_stepdef {
         String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\""+questName+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2050-03-28T00:00:08.454Z\\\",\\n\\t\\t\\ttype: SPONSORED,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  standard 111 day\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
         response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
         jsonPath=response.jsonPath();
-        System.out.println(response.prettyPrint());
+        log.info(response.prettyPrint());
     }
     @Then("admin should get Quest name cannot be same already created quest message")
     public void admin_should_get_quest_name_cannot_be_same_already_created_quest_message() {
@@ -120,7 +121,7 @@ public class Quests_stepdef {
 
         String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\"CreatedForDailReward"+startDate+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2055-01-01T00:00:08.454Z\\\",\\n\\t\\t\\ttype: STANDARD,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  for reward check\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
         response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
-        System.out.println(response.prettyPrint());
+        log.info(response.prettyPrint());
 
     }
 
@@ -134,7 +135,7 @@ public class Quests_stepdef {
         String startDate= dateTimeFormatter.format(date);
        response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
        jsonPath=response.jsonPath();
-        System.out.println(response.prettyPrint());
+        log.info(response.prettyPrint());
 
         Assert.assertTrue(jsonPath.getString("data.getUserQuestRewards.rewards.name").contains("CreatedForDailReward"+startDate));
 
