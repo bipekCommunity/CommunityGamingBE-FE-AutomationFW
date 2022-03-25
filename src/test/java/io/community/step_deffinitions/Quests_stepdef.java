@@ -9,6 +9,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
+
+import javax.inject.Named;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -20,9 +22,10 @@ public class Quests_stepdef {
     Faker faker =new Faker();
     String questName=null;
 
-
+    @Named("testURI") String testURI;
     @When("admin should be able to create new quest for test environment")
     public void admin_should_be_able_to_create_new_quest_for_test_environment() {
+
         LocalDate date=LocalDate.now();
         LocalDate tomorrow =date.plusDays(1);
         DateTimeFormatter dateTimeFormatter
@@ -133,7 +136,7 @@ public class Quests_stepdef {
         DateTimeFormatter dateTimeFormatter
                 =DateTimeFormatter.ofPattern("YYYY-MM-dd");
         String startDate= dateTimeFormatter.format(date);
-       response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
+       response= ApiUtils.request(testURI,request);
        jsonPath=response.jsonPath();
         log.info(response.prettyPrint());
 

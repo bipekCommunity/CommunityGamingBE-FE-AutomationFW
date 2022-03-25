@@ -22,7 +22,6 @@ public class Hooks {
 
         Driver.get().get( ConfigurationReader.get("url"));
         Driver.get().manage().window().fullscreen();
-        Driver.get().get(ConfigurationReader.get("url"));
         Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 

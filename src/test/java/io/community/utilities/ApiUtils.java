@@ -19,6 +19,7 @@ public class ApiUtils {
  }
    public static String date(){
        LocalDate date=LocalDate.now();
+       int i=date.getDayOfMonth();
        DateTimeFormatter dateTimeFormatter
                =DateTimeFormatter.ofPattern("YYYY-MM-dd");
 

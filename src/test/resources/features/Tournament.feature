@@ -49,7 +49,7 @@ Feature: Tournament Tests
      Then  user claim off chain reward
 
 
-  @reg @positive @wip
+  @reg @positive
   Scenario: Listing Tournament CGB-440 CGB-439 CGB-438
     Given user sign in with valid credentials "mrbrooks2" "Test1234"
     And   organizer create tournament with single elemination
@@ -70,6 +70,27 @@ Feature: Tournament Tests
     Then  tournament should list in completed tournament
     And   tournament should not list in progress tournament
     And   tournament should not list in upcoming tournament
+
+   @e2d @reg
+  Scenario: RR and SE phases E2E test
+    Given user sign in with valid credentials "mrbrooks2" "Test1234"
+    When  organizer create tournament with Multiple Bracket (RoundRobin-Single Elemination)
+    And   fill tournament with participants
+    And   generate bracket for RR
+    Then  bracket Status should be Seeded
+    When  organizer starts tournament for MultipleBracket RR-SE
+    Then  bracket Status should be Live
+    When  organizer enters the score for RR
+    And   organizer enters the score for RR second match
+    And   organizer generates bracket  for SE
+    And   organizer starts bracket for SE
+    And   organizer enters the score for SE
+    And   organizer ends the tournament for RR-SE
+    Then  bracket Status should be Complete
+    And   Winner List should contains ID
+    And   tournament status should be Complete
+
+
 
 
 
