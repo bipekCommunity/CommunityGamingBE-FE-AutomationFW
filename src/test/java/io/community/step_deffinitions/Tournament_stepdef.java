@@ -15,6 +15,9 @@ import org.junit.Assert;
 
 import javax.inject.Named;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 @Slf4j
 public class Tournament_stepdef {
@@ -34,9 +37,10 @@ public class Tournament_stepdef {
     String completedTournament=null;
     String tournametID_RR_SE=null;
     String brackedList_RR_SE=null;
-    String aliasForRR_SE=null;
+    String alias=null;
     String bracketIDRR=null;
     String bracketIDSE=null;
+    List<Object>bracketList=new ArrayList<>();
 
 
 
@@ -286,9 +290,9 @@ public class Tournament_stepdef {
     @When("organizer create tournament with Multiple Bracket \\(RoundRobin-Single Elemination)")
     public void organizer_create_tournament_with_multiple_bracket_round_robin_single_elemination() {
 
-        aliasForRR_SE=faker.name().firstName()+ApiUtils.date();
-        log.info(aliasForRR_SE);
-       String request="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+aliasForRR_SE+"\\\"\\n   \\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: 1\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2021-11-19T21:59:08.454Z\\\"\\n    name: \\\"CreatedForPhaseTest\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"cs_go\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 1000\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t  maxTeams: 4, \\n    bracketList: [\\n    {\\n\\t\\t\\tphaseIndex:1,\\n        bracketName: \\\"asd\\\",\\n        bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\",\\n        bracketType: ROUND_ROBIN,\\n        maxParticipantCount: 4,\\n        isSelfReportAllowed: true,\\n\\t\\t\\troundRobinDetails:{\\n\\t\\t\\t\\tgamesPerRound:1,\\n\\t\\t\\t\\tplayTimePerTeams:1,\\n\\t\\t\\t\\tteamsPerGroup:2,\\n\\t\\t\\t\\tnumberOfGroups : 2,\\n\\t\\t\\t\\troundRobinScoringRule:{\\n\\t\\t\\t\\t\\twin:3,draw:1,lose:0\\t\\n\\t\\t\\t\\t}\\t\\n\\t\\t\\t}\\n    }\\n\\t\\t\\t{\\n\\t\\t\\tphaseIndex:2,\\n        bracketName: \\\"asd\\\",\\n        bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\",\\n        bracketType: SINGLE_ELIMINATION,\\n        maxParticipantCount: 2,\\n        isSelfReportAllowed: true,\\n\\t\\t\\n\\t\\t\\t\\n    }\\n\\t\\t]\\n  }) {\\n    id\\n\\t\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t}\\n  }\\n}\"}";
+        alias=faker.name().firstName()+ApiUtils.date();
+        log.info(alias);
+       String request="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+alias+"\\\"\\n   \\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: 1\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2021-11-19T21:59:08.454Z\\\"\\n    name: \\\"CreatedForPhaseTest\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"cs_go\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 1000\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t  maxTeams: 4, \\n    bracketList: [\\n    {\\n\\t\\t\\tphaseIndex:1,\\n        bracketName: \\\"asd\\\",\\n        bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\",\\n        bracketType: ROUND_ROBIN,\\n        maxParticipantCount: 4,\\n        isSelfReportAllowed: true,\\n\\t\\t\\troundRobinDetails:{\\n\\t\\t\\t\\tgamesPerRound:1,\\n\\t\\t\\t\\tplayTimePerTeams:1,\\n\\t\\t\\t\\tteamsPerGroup:2,\\n\\t\\t\\t\\tnumberOfGroups : 2,\\n\\t\\t\\t\\troundRobinScoringRule:{\\n\\t\\t\\t\\t\\twin:3,draw:1,lose:0\\t\\n\\t\\t\\t\\t}\\t\\n\\t\\t\\t}\\n    }\\n\\t\\t\\t{\\n\\t\\t\\tphaseIndex:2,\\n        bracketName: \\\"asd\\\",\\n        bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\",\\n        bracketType: SINGLE_ELIMINATION,\\n        maxParticipantCount: 2,\\n        isSelfReportAllowed: true,\\n\\t\\t\\n\\t\\t\\t\\n    }\\n\\t\\t]\\n  }) {\\n    id\\n\\t\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t}\\n  }\\n}\"}";
        response=ApiUtils.request(ConfigurationReader.get("testURI"),request);
        jsonPath=response.jsonPath();
        tournametID_RR_SE=jsonPath.getString("data.createTournament.id");
@@ -309,7 +313,7 @@ public class Tournament_stepdef {
     }
     @When("fill tournament with participants")
     public void fill_tournament_with_participants() {
-        String request="{\"query\":\"mutation {\\n  fillTournamentWithParticipants(id: \\\""+aliasForRR_SE+"\\\") {id}\\n}\"}";
+        String request="{\"query\":\"mutation {\\n  fillTournamentWithParticipants(id: \\\""+alias +"\\\") {id}\\n}\"}";
         response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
     }
     @When("generate bracket for RR")
@@ -353,7 +357,6 @@ public class Tournament_stepdef {
         log.info("matchID1"+matchID1);
         log.info("matchID2"+matchID2);
         String matchID1Result=matchID1.substring(1,37);
-        String matchID2Result=matchID1.substring(1,37);
 
         String team1_1ID=jsonPath.getString("data.getRoundRR.groupMatches.team1Id[0]");
         String team1_2ID=jsonPath.getString("data.getRoundRR.groupMatches.team2Id[0]");
@@ -364,10 +367,6 @@ public class Tournament_stepdef {
         log.info("team2_1ID"+team2_1ID);
         log.info("team2_2ID"+team2_2ID);
         String team1_1IDResult=team1_1ID.substring(1,11);
-        String team1_2IDResult=team1_2ID.substring(1,11);
-        String team2_1IDResult=team2_1ID.substring(1,11);
-        String team2_2IDResult=team2_2ID.substring(1,11);
-
 
         String requestForEnterScore="{\"query\":\"mutation {\\n reportMatchScoreRR(\\n\\t\\n\\t\\tmatchId:\\\""+matchID1Result+"\\\"\\n\\t\\tbracketId:\\\""+bracketIDRR+"\\\"\\n\\t\\tscores:{\\n\\t\\t\\tscore:{\\n\\t\\t\\t\\tfirst:2\\n\\t\\t\\t\\tsecond:5\\n\\t\\t\\t}\\n\\t\\n\\t\\t\\twinnerId:\\\""+team1_1IDResult+"\\\"\\n\\t\\t}\\n\\t)\\n\\n{\\n\\t\\n\\tbracketId\\n\\tmatchResult\\n\\tmatchStatus\\n\\t\\n\\tid\\n}\\n}\"}";
         response = ApiUtils.request(ConfigurationReader.get("testURI"),requestForEnterScore);
@@ -388,7 +387,6 @@ public class Tournament_stepdef {
         String matchID2=jsonPath.getString("data.getRoundRR.groupMatches.id[1]");
         log.info("matchID1"+matchID1);
         log.info("matchID2"+matchID2);
-        String matchID1Result=matchID1.substring(1,37);
         String matchID2Result=matchID2.substring(1,37);
         log.info("matchID1Result"+matchID2Result);
 
@@ -400,9 +398,6 @@ public class Tournament_stepdef {
         String team2_2ID =jsonPath.getString("data.getRoundRR.groupMatches.team2Id[1]");
         log.info("team2_1ID"+team2_1ID);
         log.info("team2_2ID"+team2_2ID);
-        String team1_1IDResult=team1_1ID.substring(1,11);
-        String team1_2IDResult=team1_2ID.substring(1,11);
-        String team2_1IDResult=team2_1ID.substring(1,11);
         String team2_2IDResult=team2_2ID.substring(1,11);
         String requestForEnterScore2="{\"query\":\"mutation {\\n reportMatchScoreRR(\\n\\t\\n\\t\\tmatchId:\\\""+matchID2Result+"\\\"\\n\\t\\tbracketId:\\\""+bracketIDRR+"\\\"\\n\\t\\tscores:{\\n\\t\\t\\tscore:{\\n\\t\\t\\t\\tfirst:1\\n\\t\\t\\t\\tsecond:2\\n\\t\\t\\t}\\n\\t\\n\\t\\t\\twinnerId:\\\""+team2_2IDResult+"\\\"\\n\\t\\t}\\n\\t)\\n\\n{\\n\\t\\n\\tbracketId\\n\\tmatchResult\\n\\tmatchStatus\\n\\t\\n\\tid\\n}\\n}\"}";
         response = ApiUtils.request(ConfigurationReader.get("testURI"),requestForEnterScore2);
@@ -456,7 +451,7 @@ public class Tournament_stepdef {
     @Then("Winner List should contains ID")
     public void winner_list_should_contains_id() {
 
-        String request="{\"query\":\"query {\\n  tournament(id:\\\""+aliasForRR_SE+"\\\"){\\n\\t\\tid\\n\\t\\tparticipants{\\n\\t\\t\\tid\\n\\t\\t}\\n\\t\\tisAutoApprovalEnabled\\n\\t\\tautoApprovalMinute\\n\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t\\t\\n\\t\\t}\\n\\t\\tmatchesL{\\n\\t\\t\\tid\\n\\t\\t}\\n\\t\\tmatchIds\\n\\t\\tmatches{\\n\\t\\t\\tid\\n\\t\\t\\t\\n\\t\\t}\\n\\t\\t\\n\\t\\t\\n\\t\\twinners{\\n\\t\\t\\tuserId\\n\\t\\t\\tteamId\\n\\t\\t\\tteamPosition\\n\\t\\t\\tpaypalId\\n\\t\\t}\\n\\t}\\n}\"}";
+        String request="{\"query\":\"query {\\n  tournament(id:\\\""+alias+"\\\"){\\n\\t\\tid\\n\\t\\tparticipants{\\n\\t\\t\\tid\\n\\t\\t}\\n\\t\\tisAutoApprovalEnabled\\n\\t\\tautoApprovalMinute\\n\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t\\t\\n\\t\\t}\\n\\t\\tmatchesL{\\n\\t\\t\\tid\\n\\t\\t}\\n\\t\\tmatchIds\\n\\t\\tmatches{\\n\\t\\t\\tid\\n\\t\\t\\t\\n\\t\\t}\\n\\t\\t\\n\\t\\t\\n\\t\\twinners{\\n\\t\\t\\tuserId\\n\\t\\t\\tteamId\\n\\t\\t\\tteamPosition\\n\\t\\t\\tpaypalId\\n\\t\\t}\\n\\t}\\n}\"}";
         response=ApiUtils.request(ConfigurationReader.get("testURI"),request);
         log.info("Tournament Detail= "+response.prettyPrint());
         jsonPath=response.jsonPath();
@@ -472,9 +467,82 @@ public class Tournament_stepdef {
 
     }
 
+    @When("Organizer create a Tournament {int} {int} Swiss bracket as {int} {int} {int} {int} {int} and single elemination as {int} {int}")
+    public void organizer_create_a_tournament_swiss_bracket_as_and_single_elemination_as(Integer teamSize, Integer maxTeams, Integer phaseIndeSW, Integer maxParticipantCountSW, Integer gamesPerRoundSW, Integer playPerTeamsSW, Integer roundCountSW, Integer phaseIndexSE, Integer maxParticipantCountSE) {
+    String swbracket=ApiUtils.swiss(phaseIndeSW,maxParticipantCountSW,gamesPerRoundSW,playPerTeamsSW,roundCountSW);
+    String sEbracket=ApiUtils.singleElemination(phaseIndexSE,maxParticipantCountSE);
+    alias=faker.name().firstName()+ApiUtils.date();
+    String request="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+alias+"\\\"\\n   \\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: "+teamSize+"\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2021-11-19T21:59:08.454Z\\\"\\n    name: \\\"CreatedForPhaseTest\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"cs_go\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 1000\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t  maxTeams: "+maxTeams+", \\n    bracketList: [\\n "+swbracket+"\\n\\t"+sEbracket+"\\n\\t\\t]\\n  }) {\\n    id\\n\\t\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t}\\n  }\\n}\"}";
 
+    response=ApiUtils.request(ConfigurationReader.get("testURI"),request);
+    jsonPath=response.jsonPath();
+    log.info(response.prettyPrint());
+
+    multipleTournamentID=jsonPath.getString("data.createTournament.id");
+    bracketList=jsonPath.getList("data.createTournament.bracketList.id");
+    log.info(bracketList.toString()+"bracket first="+bracketList.get(0));
+
+    }
+
+    @Given("generate bracket swiss")
+    public void generate_bracket_swiss() {
+        String request = "{\"query\":\"query {\\n  tournament(id:\\\""+alias+"\\\"){\\n\\t\\tid\\n\\t\\tparticipants{\\n\\t\\t\\tid\\n\\t\\t}\\n\\t\\tisAutoApprovalEnabled\\n\\t\\tautoApprovalMinute\\n\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t\\t\\n\\t\\t}\\n\\t\\tmatchesL{\\n\\t\\t\\tid\\n\\t\\t}\\n\\t\\tmatchIds\\n\\t\\tmatches{\\n\\t\\t\\tid\\n\\t\\t\\t\\n\\t\\t}\\n\\t\\t\\n\\t\\t\\n\\t\\twinners{\\n\\t\\t\\tuserId\\n\\t\\t\\tteamId\\n\\t\\t\\tteamPosition\\n\\t\\t\\tpaypalId\\n\\t\\t}\\n\\t}\\n}\"}";
+
+        response = ApiUtils.request(ConfigurationReader.get("testURI"), request);
+        jsonPath = response.jsonPath();
+        List<String> participants = new ArrayList<>();
+        participants = jsonPath.getList("data.tournament.participants.id");
+
+        List<List<String>> listOfList = new ArrayList<>();
+
+
+        for (int i = 0; i < participants.size(); i += 2) {
+
+            List<String> tempList = new ArrayList<>();
+            for (int j = 0; j < 1; j++) {
+
+                tempList.add(participants.get(i));
+                tempList.add(participants.get(i + 1));
+
+            }
+            listOfList.add(tempList);
+        }
+        System.out.println("listOfList = " + listOfList);
+
+
+        String participantadd = "";
+        for (int i = 0; i < listOfList.size() ; i++) {
+
+            for(int j = 0; j<1; j++) {
+                participantadd = participantadd + "," + "{team1Id:\\\"" + listOfList.get(i).get(j) + "\\\"," +
+                        "team2Id:\\\"" + listOfList.get(i).get(j+1) + "\\\"}";
+
+            }
+        }System.out.println("participantadd = " + participantadd.substring(1));
+
+       String request4="{\"query\":\"\\nmutation {\\n\\tgenerateBracketSwiss(bracketId: \\\""+bracketList.get(0)+"\\\",\\n\\tmatchParticipantsList:["+participantadd.substring(1)+"]){\\n\\t\\tid\\n\\t}\\n}\"}";
+       log.info(request4);
+        response=ApiUtils.request(ConfigurationReader.get("testURI"),request4);
+        jsonPath=response.jsonPath();
+        log.info(response.prettyPrint());
+        Assert.assertTrue(!jsonPath.getString("data.generateBracketSwiss.id").isEmpty());
+        }
+    @When("organizer starts tournament for MultipleBracket")
+    public void organizer_starts_tournament_for_multiple_bracket() {
+        String request="{\"query\":\"mutation {\\n  startTournament(tournamentId: \\\""+multipleTournamentID+"\\\") {\\n    id,\\n\\t\\tbracketInformation{\\n\\t\\t\\tbracketName\\n\\t\\t\\t\\n\\t\\t}\\n    \\n  }\\n}\"}";
+        response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
+        log.info(response.prettyPrint());
+    }
 
 
 
 
 }
+
+
+
+
+
+
+
+

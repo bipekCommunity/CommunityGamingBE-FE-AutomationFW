@@ -71,7 +71,7 @@ Feature: Tournament Tests
     And   tournament should not list in progress tournament
     And   tournament should not list in upcoming tournament
 
-   @e2d @reg
+   @e2d @reg @smoke
   Scenario: RR and SE phases E2E test
     Given user sign in with valid credentials "mrbrooks2" "Test1234"
     When  organizer create tournament with Multiple Bracket (RoundRobin-Single Elemination)
@@ -90,9 +90,31 @@ Feature: Tournament Tests
     And   Winner List should contains ID
     And   tournament status should be Complete
 
+  @wip
+  Scenario Outline: Swiss-SE Tournament Creation
+     Given user sign in with valid credentials "mrbrooks2" "Test1234"
+     When Organizer create a Tournament <teamSize> <maxTeams> Swiss bracket as <phaseIndeSW> <maxParticipantCountSW> <gamesPerRoundSW> <playPerTeamsSW> <roundCountSW> and single elemination as <phaseIndexSE> <maxParticipantCountSE>
+     And  fill tournament with participants
+   And generate bracket swiss
+    And organizer starts tournament for MultipleBracket
+
+    Examples:
+    |teamSize|maxTeams|phaseIndeSW|maxParticipantCountSW|gamesPerRoundSW|playPerTeamsSW|roundCountSW|phaseIndexSE|maxParticipantCountSE|
+    |1       |4       |1          |4                    |1              |1             |2           |2           |4                    |
+    |1       |96      |1          |96                   |1              |2             |1          |2           |64                   |
 
 
 
+  Scenario: getFinancialTransaction
+    Given Admin queries by (questName, userName, startDate, EndDate) using the getFinancialTransaction endpoint.
+    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
 
+    Given Admin queries by getFinancialTransaction endpoint (questName, userName, startDate, EndDate, sort(DESC-ASC)).
+    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
 
+    Given Admin queries by getFinancialTransaction endpoint (questName, userName, startDate, EndDate, sort(DESC-ASC),SortBy(userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName).
+    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
+
+    Given Admin Admin queries by getFinancialTransaction endpoint(questName, userName, startDate, EndDate, sort(DESC-ASC),SortBy("EMPTY")
+    Then  searchResult should be(Property must not null or empty!",)
 

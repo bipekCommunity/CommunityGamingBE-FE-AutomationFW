@@ -29,4 +29,46 @@ public class ApiUtils {
 
    }
 
+   public static String roundRobin(int phaseIndex,int maxParticipantCount,int gamesPerRound,int playPerTeams,int teamsPerGroup,int numberofGroups){
+
+        String roundRobin ="{phaseIndex:"+phaseIndex+"," +
+                "bracketName: \\\"createdForAutomationTest\\\"," +
+                "bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\"," +
+                "bracketType: ROUND_ROBIN," +
+                "maxParticipantCount: "+maxParticipantCount+"," +
+                "isSelfReportAllowed: true," +
+                "roundRobinDetails:{gamesPerRound:"+gamesPerRound+"," +
+                "playTimePerTeams:"+playPerTeams+"," +
+                "teamsPerGroup:"+teamsPerGroup+"," +
+                "numberOfGroups : "+numberofGroups+"," +
+                "roundRobinScoringRule:{win:3,draw:1,lose:0\\t}\\t}}";
+
+        return roundRobin;
+   }
+
+   public static String swiss(int phaseIndex,int maxParticipantCount,int gamesPerRound,int playPerTeams,int roundCount){
+        String swiss ="{phaseIndex:"+phaseIndex+"," +
+                "bracketName: \\\"createdForAutomationTest\\\"," +
+                "bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\"," +
+                "bracketType: SWISS," +
+                "maxParticipantCount:"+maxParticipantCount+"," +
+                "isSelfReportAllowed: true," +
+                "swissDetails:{gamesPerRound:"+gamesPerRound+"," +
+                "playTimePerTeams:"+playPerTeams+"," +
+                "numberOfTeams:"+maxParticipantCount+","+
+                "roundCount:"+roundCount+"," +
+                "swissScoringRule:{win:3,draw:1,lose:0}}}";
+        return swiss;
+   }
+
+   public static String singleElemination(int phaseIndex,int maxParticipantCount){
+        String singleElemination="{phaseIndex:"+phaseIndex+"," +
+                "bracketName: \\\"asd\\\"," +
+                "bracketStartDate: \\\"2022-01-19T21:59:08.454Z\\\"," +
+                "bracketType:SINGLE_ELIMINATION," +
+                "maxParticipantCount: "+maxParticipantCount+"," +
+                "isSelfReportAllowed: true,}";
+        return singleElemination;
+   }
+
 }
