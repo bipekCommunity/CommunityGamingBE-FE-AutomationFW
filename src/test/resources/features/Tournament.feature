@@ -105,16 +105,4 @@ Feature: Tournament Tests
 
 
 
-  Scenario: getFinancialTransaction
-    Given Admin queries by (questName, userName, startDate, EndDate) using the getFinancialTransaction endpoint.
-    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
-
-    Given Admin queries by getFinancialTransaction endpoint (questName, userName, startDate, EndDate, sort(DESC-ASC)).
-    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
-
-    Given Admin queries by getFinancialTransaction endpoint (questName, userName, startDate, EndDate, sort(DESC-ASC),SortBy(userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName).
-    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
-
-    Given Admin Admin queries by getFinancialTransaction endpoint(questName, userName, startDate, EndDate, sort(DESC-ASC),SortBy("EMPTY")
-    Then  searchResult should be(Property must not null or empty!",)
 
