@@ -10,5 +10,8 @@
         <module name="CommunityGamingAPI" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CommunityGamingAPIAutomationFWRepo" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -90,7 +90,7 @@ Feature: Tournament Tests
     And   Winner List should contains ID
     And   tournament status should be Complete
 
-  @wip
+
   Scenario Outline: Swiss-SE Tournament Creation
      Given user sign in with valid credentials "mrbrooks2" "Test1234"
      When Organizer create a Tournament <teamSize> <maxTeams> Swiss bracket as <phaseIndeSW> <maxParticipantCountSW> <gamesPerRoundSW> <playPerTeamsSW> <roundCountSW> and single elemination as <phaseIndexSE> <maxParticipantCountSE>
@@ -100,8 +100,8 @@ Feature: Tournament Tests
 
     Examples:
     |teamSize|maxTeams|phaseIndeSW|maxParticipantCountSW|gamesPerRoundSW|playPerTeamsSW|roundCountSW|phaseIndexSE|maxParticipantCountSE|
-    |1       |4       |1          |4                    |1              |1             |2           |2           |4                    |
-    |1       |96      |1          |96                   |1              |2             |1          |2           |64                   |
+    #|1       |4       |1          |4                    |1              |1             |2           |2           |4                    |
+    |1       |4000     |1          | 4000                 |12              |2             |1          |2           |2000                   |
 
 
 
