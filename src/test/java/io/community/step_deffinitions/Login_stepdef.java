@@ -47,6 +47,17 @@ public class Login_stepdef {
         log.info("accessToken "+token);
     }
 
+    @Given("user sign in with valid credentials {string} username {string} password in {string} envirenment")
+    public void user_sign_in_with_valid_credentials_username_password_in_envirenment(String username, String password, String env) {
+        String body="{\"query\":\"query {\\n  signInUser(username: \\\""+username+"\\\", password: \\\""+password+"\\\") {\\n    accessToken\\n  }\\n}\\n\\n\"}";
+        response = given().accept(ContentType.JSON).body(body).when()
+                .post(ConfigurationReader.get(env));
+        jsonPath =response.jsonPath();
+        token= jsonPath.getString("data.signInUser.accessToken");
+
+        log.info("accessToken "+token);
+    }
+
 
     @Then("Status Code Should be {int}")
     public void satus_Code_Should_be(int expectedStatusCode) {
