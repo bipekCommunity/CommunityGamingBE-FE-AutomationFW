@@ -45,3 +45,9 @@ Feature: Login Page's Tests
 
 
 
+##Scenario: Sending Match Room Ready Notification For Swiss Bracket
+ ## When  a swiss bracket started
+  ##Then  users should be able to see Match Ready popup
+
+  ##When  the next round generated
+  ##Then  users should be able to see Match Ready popup

@@ -4,10 +4,14 @@ import com.github.javafaker.Faker;
 import io.community.utilities.ApiUtils;
 import io.community.utilities.ConfigurationReader;
 import io.cucumber.java.en.*;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
+
+import static io.restassured.RestAssured.given;
+
 @Slf4j
 public class Users_stepdef {
     Response response=null;
@@ -108,6 +112,30 @@ public class Users_stepdef {
     @Then("user should  be able to see registration answers")
     public void user_should_not_be_able_to_see_registration_answers() {
         Assert.assertTrue(!jsonPath.getString("data.getRegistrationQuestionsResponses.responses").isEmpty());
+    }
+    @Given("useraddd")
+    public void useraddd() {
+        int i=1;
+        for (int j=1 ;j<=5000;j++) {
+            String userName = "testUser" + i;
+            String body = "{\"query\":\"query {\\n  signInUser(username: \\\"" + userName + "\\\", password: \\\"testUser1234\\\") {\\n    accessToken\\n  }\\n}\\n\\n\"}";
+            response = given().accept(ContentType.JSON).body(body).when()
+                    .post(ConfigurationReader.get("dev4URI"));
+            jsonPath = response.jsonPath();
+            String token = jsonPath.getString("data.signInUser.accessToken");
+
+            log.info("accessToken " + token);
+
+            String body2 = "{\"query\":\"mutation{\\n\\taddParticipant (\\ntournamentId:\\\"f13912f9-8991-4982-8c97-6634303d873e\\\",\\nteamId:\\\"test_user_" + i + "\\\",\\nsquadIds:[],\\nsubstituteIds:[],\\nresponses: [\\\"Game1\\\", \\\"Ukraine\\\", \\\"test1\\\"],\\ngameIds:[]\\n\\t)\\n\\t{\\n\\t\\tid\\n\\tparticipants{\\n\\t\\tid\\n\\t}\\n\\t\\tisAutoApprovalEnabled\\n\\t\\tisPrizeTargetInUSD\\n\\t\\tmaxTeams\\n\\t\\t\\n\\t\\t\\n\\t}\\n}\"}";
+
+            Response response = given().headers(
+                    "Authorization",
+                    "Bearer " +token,
+                    "Content-Type", "application/json").body(body2).when().post(ConfigurationReader.get("dev4URI"));
+            log.info(response.prettyPrint());
+            i++;
+        }
+
     }
 
 

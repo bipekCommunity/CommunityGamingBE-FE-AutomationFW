@@ -111,3 +111,22 @@ Scenario: Importing .csv file to the admin panel CGB-457 (positive)
     When super admin tries to delete user data using softDeleteUser endpoint
     Then user data should be deleted
     And  try to sign in with deleted user data, the user should get not found error
+
+    14.04.2022
+     Scenario:  Listing and Filtering Translations CGB-490
+          Given user create a word in English then create a translation of that word's
+          When  user try to get Translations data with correct data
+          Then  Translations data should be listed
+
+      Scenario:  Listing and Filtering Translations CGB-490
+
+        When  user can be able to get Translations data with blank or filled status
+        Then  Translations data should be listed filled or blank status
+
+        When  user can be able to get Translations data from to desc or asc
+        Then  Translations data should be listed from to desc or asc
+
+      Scenario:  Publishing the data for FE CGB-461
+        When  User published the data using  publishMultiLanguageFile endPoints
+        Then  Translated data should be shown in json file
+

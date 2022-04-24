@@ -166,7 +166,9 @@ public class Tournament_stepdef {
 
     }
     @Given("Add participant mrbrooks")
-    public void add_participant_mrbrooks() {
+    public void
+
+    add_participant_mrbrooks() {
        String request = "{\"query\":\"mutation{\\n\\taddParticipant (\\ntournamentId:\\\""+singleTournamentID+"\\\",\\nteamId:\\\"cdf0746b-e72d-4b17-8a38-7964f37b87cb\\\",\\nsquadIds:[],\\nsubstituteIds:[],\\nresponses: [\\\"Game1\\\", \\\"Ukraine\\\", \\\"test1\\\"],\\ngameIds:[]\\n\\t)\\n\\t{\\n\\t\\tid\\n\\tparticipants{\\n\\t\\tid\\n\\t}\\n\\t\\tisAutoApprovalEnabled\\n\\t\\tisPrizeTargetInUSD\\n\\t\\tmaxTeams\\n\\t\\t\\n\\t\\t\\n\\t}\\n}\\n\"}";
        response = ApiUtils.request(ConfigurationReader.get("testURI"),request);
         log.info(response.prettyPrint());

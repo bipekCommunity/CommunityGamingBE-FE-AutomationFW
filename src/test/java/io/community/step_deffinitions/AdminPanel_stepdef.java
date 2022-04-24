@@ -73,6 +73,7 @@ public class AdminPanel_stepdef {
         response= ApiUtils.request(ConfigurationReader.get("dev2URI"),request);
         log.info(response.prettyPrint());
         jsonPath=response.jsonPath();
+        id= jsonPath.getString("data.addToken.id");
 
 
 
@@ -112,6 +113,25 @@ public class AdminPanel_stepdef {
 
 
     }
+    @When("user can be able to delete created token")
+    public void user_can_be_able_to_delete_created_token() {
+
+        String request="{\"query\":\"mutation {\\n  softDeleteToken(tokenId: \\\""+id+"\\\") \\n  \\n  \\n}\\n\"}";
+
+        response=ApiUtils.request(ConfigurationReader.get("dev2URI"),request);
+        log.info(response.prettyPrint());
+    }
+    @Then("Deleted token should appear in token list")
+    public void deleted_token_should_not_list_with_tokens() {
+       String request="{\"query\":\"{\\n\\ttokens {\\n\\t\\tid\\n\\t\\tname\\n\\t\\tsymbol\\n\\t\\tchain\\n\\t\\tlogo\\n\\t\\taddress\\n\\t\\tusdPrice\\n\\t\\ttokenVersion\\n\\t\\tdecimals\\n\\t\\tpermitSignature\\n\\t\\tcreatedAt\\n\\t\\tupdatedAt\\n\\t}\\n}\\n\"}";
+
+       response=ApiUtils.request(ConfigurationReader.get("dev2URI"),request);
+       jsonPath=response.jsonPath();
+        log.info(response.prettyPrint());
+     log.info(jsonPath.getString("data.tokens.id"));
+        Assert.assertTrue(jsonPath.getString("data.tokens.id").contains(id));
+    }
+
 
     @When("user try to create new game with valid data")
     public void usertry_to_create_new_game_with_valid_data() {
