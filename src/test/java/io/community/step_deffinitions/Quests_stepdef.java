@@ -21,6 +21,7 @@ public class Quests_stepdef {
     String questID=null;
     Faker faker =new Faker();
     String questName=null;
+    String startDate=null;
 
     @Named("testURI") String testURI;
     @When("admin should be able to create new quest for test environment")
@@ -40,6 +41,24 @@ public class Quests_stepdef {
         questID=jsonPath.getString("data.createQuest.id");
         log.info("questID "+questID);
     }
+    @When("admin should be able to create new quest for {string} environment")
+    public void admin_should_be_able_to_create_new_quest_for_environment(String env) {
+        LocalDate date=LocalDate.now();
+        LocalDate tomorrow =date.plusDays(1);
+        DateTimeFormatter dateTimeFormatter
+                =DateTimeFormatter.ofPattern("YYYY-MM-dd");
+        String startDate= dateTimeFormatter.format(tomorrow);
+        questName=faker.name().fullName();
+        System.out.println(startDate);
+        String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\""+questName+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2050-03-28T00:00:08.454Z\\\",\\n\\t\\t\\ttype: SPONSORED,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  standard 111 day\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
+        response= ApiUtils.request(ConfigurationReader.get(env),request);
+        jsonPath=response.jsonPath();
+        System.out.println(response.prettyPrint());
+        questID=jsonPath.getString("data.createQuest.id");
+        log.info("questID "+questID);
+    }
+
+
     @Then("Quest id should be created")
     public void quest_id_should_be_created() {
         Assert.assertTrue(!questID.isEmpty());
@@ -51,6 +70,13 @@ public class Quests_stepdef {
      response=ApiUtils.request(ConfigurationReader.get("testURI"),request);
      jsonPath=response.jsonPath();
 
+    }
+    @When("admin should be able to delete quest for {string} environment")
+    public void admin_should_be_able_to_delete_quest_for_environment(String env) {
+        String request="{\"query\":\"mutation{\\n\\tdeleteQuest(\\n\\t\\tquestId: \\\""+questID+"\\\"\\n\\t)\\n}\"}";
+
+        response=ApiUtils.request(ConfigurationReader.get(env),request);
+        jsonPath=response.jsonPath();
     }
     @Then("admin search for deleted quest should get not found message")
     public void admin_search_for_deleted_quest_should_get_not_found_message() {
@@ -119,24 +145,30 @@ public class Quests_stepdef {
         LocalDate tomorrow =date.plusDays(1);
         DateTimeFormatter dateTimeFormatter
                 =DateTimeFormatter.ofPattern("YYYY-MM-dd");
-        String startDate= dateTimeFormatter.format(tomorrow);
+         startDate= dateTimeFormatter.format(tomorrow);
+        String questName=faker.name().firstName();
 
 
-        String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\"CreatedForDailReward"+startDate+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2055-01-01T00:00:08.454Z\\\",\\n\\t\\t\\ttype: STANDARD,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  for reward check\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
+        String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\"CreatedForDailReward"+questName+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"Test123\\\"\\n\\t\\t\\tstartDate:\\\""+startDate+"T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2055-01-01T00:00:08.454Z\\\",\\n\\t\\t\\ttype: STANDARD,\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  for reward check\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:NON_CRYPTO,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: ACTIVE_USER\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype: COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\"kwai\\\",\\n\\t\\t\\t\\t\\t\\tamount: 12\\n\\t\\t\\t\\t\\t}\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
         response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
         log.info(response.prettyPrint());
 
     }
+    @When("User add user action in {string} env")
+    public void user_add_user_action_in_env(String env) {
+     String date=startDate+"T00:00:00.000Z";
+      String request="{\"query\":\"mutation{\\n\\taddUserAction(actionType:LOGIN,actionDate: \\\"2028-05-16T00:00:00.000Z\\\")\\n}\"}";
+        response= ApiUtils.request(ConfigurationReader.get(env),request);
+        log.info(response.prettyPrint());
+    }
+
 
     @Then("completed quest' reward should be able shown in getUserQuestRewards")
     public void completed_quest_reward_should_be_able_shown_in_get_user_quest_rewards() {
 
         String request="{\"query\":\"query{\\n\\tgetUserQuestRewards{\\n\\t\\tquestId\\n\\t\\trewards{\\n\\t\\t\\tclaimedAt\\n\\t\\t\\tstatus\\n\\t\\t\\tname\\n\\t\\t}\\n\\t\\ttotalAmount\\n\\t}\\n\\t\\t\\n\\t\\t\\n\\t\\n\\n}\"}";
-        LocalDate date=LocalDate.now();
-        DateTimeFormatter dateTimeFormatter
-                =DateTimeFormatter.ofPattern("YYYY-MM-dd");
-        String startDate= dateTimeFormatter.format(date);
-       response= ApiUtils.request(testURI,request);
+
+       response= ApiUtils.request(ConfigurationReader.get("testURI"),request);
        jsonPath=response.jsonPath();
         log.info(response.prettyPrint());
 

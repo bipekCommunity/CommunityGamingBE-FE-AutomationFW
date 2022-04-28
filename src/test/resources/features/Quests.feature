@@ -8,6 +8,14 @@ Feature: Quests
     When  admin should be able to delete quest
     Then  admin search for deleted quest should get not found message
 
+
+  Scenario: Organizer should be able to create new quest end delete quest (passive quest)- dev-Env
+   Given  user sign in with valid credentials "TestingUser01" username "Test1234" password in "devURI" envirenment
+    When  admin should be able to create new quest for "devURI" environment
+    Then  Quest id should be created
+    When  admin should be able to delete quest for "devURI" environment
+    Then  admin search for deleted quest should get not found message
+
   @reg @negative
   Scenario: Organizer should not be able to delete active quest -test env
     Given user sign in with valid credentials "mrbrooks2" "Test1234"
@@ -27,11 +35,12 @@ Feature: Quests
     When  admin try to create same quest again
     Then  admin should get Quest name cannot be same already created quest message
 
-  @smoke @positive
+  @smoke @positive   
   Scenario:Giving the Claim Right to Users CGB-387
     Given user sign in with valid credentials "mrbrooks2" "Test1234"
     And   admin create new quest for test environment
     Given user sign in with valid credentials "mrbrooks" "Test1234"
+    When User add user action in "testURI" env
     Then   completed quest' reward should be able shown in getUserQuestRewards
 
 

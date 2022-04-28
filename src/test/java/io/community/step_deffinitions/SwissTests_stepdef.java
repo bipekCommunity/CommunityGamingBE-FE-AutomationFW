@@ -54,6 +54,11 @@ public class SwissTests_stepdef {
 
 
     }
+    @Given("Enter specific tournament info {string} tournamentID {string} bracketID for axieTournament")
+    public void enter_specific_tournament_info_tournament_id_bracket_id_for_axie_tournament(String tournamentid, String bracketid) {
+        tournamentID=tournamentid;
+        bracketID=bracketid;
+    }
     @When("Add {int} participant to tournament")
     public void add_participant_to_tournament(Integer participant) {
         int i=1;

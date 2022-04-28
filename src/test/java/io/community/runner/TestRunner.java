@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "io/community/step_deffinitions",
         dryRun =false,
-        tags = "@wip1"
+        tags = "@swiss"
 )
 public class TestRunner {
 }

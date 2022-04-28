@@ -129,4 +129,24 @@ Scenario: Importing .csv file to the admin panel CGB-457 (positive)
       Scenario:  Publishing the data for FE CGB-461
         When  User published the data using  publishMultiLanguageFile endPoints
         Then  Translated data should be shown in json file
+2904
+  Scenario: Adding view "ready" status permission for tournament admins
+    When Organizer enters the ready status for tournament user
+    Then Status should be able to seen on getTournamentUserPermissionList
 
+    When User try to enters the ready status for tournament user
+    Then User should get error message
+
+    When  Organizer enters the ready status for same tournament user
+    Then User should get error message
+
+ 2904
+  Scenario: Add validation to discord channel link-updateTournament
+    When The organizer updates the tournament without enter discord url
+    Then Tournament should be updated
+
+    When The organizer updates the tournament with valid discord url
+    Then Tournament should be updated
+
+    When The organizer try to update the tournament invalid discord url
+    Then The organizer should get error message
