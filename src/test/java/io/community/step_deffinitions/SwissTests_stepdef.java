@@ -80,13 +80,13 @@ public class SwissTests_stepdef {
                     "Bearer " +token,
                     "Content-Type", "application/json").body(body2).when().post(ConfigurationReader.get("dev4URI"));
             log.info(response.prettyPrint());
-            jsonPath = response.jsonPath();
+           // jsonPath = response.jsonPath();
             participantList=jsonPath.getList("data.addParticipant.participants.id");
             i++;
 
 
         }
-        log.info(participantList.toString());
+
     }
     @Given("organizer generate first swiss bracket")
     public void organizer_generate_first_swiss_bracket() {
@@ -119,7 +119,7 @@ public class SwissTests_stepdef {
                         "team2Id:\\\"" + listOfList.get(i).get(j+1) + "\\\"}";
 
             }
-        }System.out.println("participantadd = " + participantadd.substring(1));
+        }//System.out.println("participantadd = " + participantadd.substring(1));
 
         String request4="{\"query\":\"\\nmutation {\\n\\tgenerateBracketSwiss(bracketId: \\\""+bracketID.substring(1,37)+"\\\",\\n\\tmatchParticipantsList:["+participantadd.substring(1)+"]){\\n\\t\\tid\\n\\t}\\n}\"}";
         log.info(request4);
