@@ -79,8 +79,8 @@ public class SwissTests_stepdef {
                     "Authorization",
                     "Bearer " +token,
                     "Content-Type", "application/json").body(body2).when().post(ConfigurationReader.get("dev4URI"));
-            log.info(response.prettyPrint());
-           // jsonPath = response.jsonPath();
+           // log.info(response.prettyPrint());
+            jsonPath = response.jsonPath();
             participantList=jsonPath.getList("data.addParticipant.participants.id");
             i++;
 
