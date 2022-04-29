@@ -107,7 +107,7 @@ public class SwissTests_stepdef {
             }
             listOfList.add(tempList);
         }
-        System.out.println("listOfList = " + listOfList);
+        //System.out.println("listOfList = " + listOfList);
 
 
         String participantadd = "";
@@ -120,12 +120,12 @@ public class SwissTests_stepdef {
 
             }
         }//System.out.println("participantadd = " + participantadd.substring(1));
-
-        String request4="{\"query\":\"\\nmutation {\\n\\tgenerateBracketSwiss(bracketId: \\\""+bracketID.substring(1,37)+"\\\",\\n\\tmatchParticipantsList:["+participantadd.substring(1)+"]){\\n\\t\\tid\\n\\t}\\n}\"}";
+                                                                                            //+bracketID.substring(1,37)+ normal koşumda kullan
+        String request4="{\"query\":\"\\nmutation {\\n\\tgenerateBracketSwiss(bracketId: \\\""+bracketID+"\\\",\\n\\tmatchParticipantsList:["+participantadd.substring(1)+"]){\\n\\t\\tid\\n\\t}\\n}\"}";
         log.info(request4);
         response=ApiUtils.request(ConfigurationReader.get("dev4URI"),request4);
         jsonPath=response.jsonPath();
-        log.info(response.prettyPrint());
+        //log.info(response.prettyPrint());
         Assert.assertTrue(!jsonPath.getString("data.generateBracketSwiss.id").isEmpty());
 
     }
@@ -144,7 +144,8 @@ public class SwissTests_stepdef {
 
         for (int i = 1; i <= round; i++) {
             for (int l=0;l<(participant/2);l++) {
-                String requestForMatchID = "{\"query\":\"query{\\n\\tgetRoundSwissPage(bracketId:\\\""+bracketID.substring(1,37)+"\\\", ,roundIndex:"+i+",pageCount:"+l+",size:1) \\n\\t{\\n\\tbracketId\\n\\t\\tcontentPage{\\n\\t\\t\\tcontent{\\n\\t\\t\\t\\tid\\n\\t\\t\\t}\\n\\t\\t}\\n\\t}\\n\\t\\n}\"}";
+                                                                                                    //+bracketID.substring(1,37)+
+                String requestForMatchID = "{\"query\":\"query{\\n\\tgetRoundSwissPage(bracketId:\\\""+bracketID+"\\\", ,roundIndex:"+i+",pageCount:"+l+",size:1) \\n\\t{\\n\\tbracketId\\n\\t\\tcontentPage{\\n\\t\\t\\tcontent{\\n\\t\\t\\t\\tid\\n\\t\\t\\t}\\n\\t\\t}\\n\\t}\\n\\t\\n}\"}";
                 response = ApiUtils.request(ConfigurationReader.get("dev4URI"), requestForMatchID);
                 jsonPath = response.jsonPath();
                 log.info(response.prettyPrint());
@@ -155,9 +156,10 @@ public class SwissTests_stepdef {
 
             for (int j = 1; j <= (participant / 2); j++) {
                 Random rand = new Random(); //instance of random class
-                int firstScore = rand.nextInt(10);
-                int secSocre = rand.nextInt(10);
-                String requestForMatchReport = "{\"query\":\"mutation {\\n\\treportMatchScoreSwiss(\\n\\t\\tbracketId: \\\"" + bracketID.substring(1,37) + "\\\",\\n    matchId: \\\"" + matchID.get((x)).substring(1,37) + "\\\",\\n    scores: [\\n        {\\n            scoreIndex: 0,\\n            winnerId: \\\"\\\",\\n            score: {\\n                first: " + firstScore + ",\\n                second: " + secSocre + "\\n            }\\n    }\\n    ]\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
+                int firstScore = rand.nextInt(30);
+                int secSocre = rand.nextInt(30);
+                                                                                                                            //+bracketID.substring(1,37)+
+                String requestForMatchReport = "{\"query\":\"mutation {\\n\\treportMatchScoreSwiss(\\n\\t\\tbracketId: \\\"" + bracketID+ "\\\",\\n    matchId: \\\"" + matchID.get((x)).substring(1,37) + "\\\",\\n    scores: [\\n        {\\n            scoreIndex: 0,\\n            winnerId: \\\"\\\",\\n            score: {\\n                first: " + firstScore + ",\\n                second: " + secSocre + "\\n            }\\n    }\\n    ]\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
                 response = ApiUtils.request(ConfigurationReader.get("dev4URI"), requestForMatchReport);
                 jsonPath = response.jsonPath();
                 log.info(response.prettyPrint());
@@ -166,7 +168,8 @@ public class SwissTests_stepdef {
             }
             k++;
             if(k>round){break;}
-            String requestForNextRound="{\"query\":\"mutation {\\n\\tgenerateNextRoundSwiss(bracketId: \\\""+bracketID.substring(1,37)+"\\\"){\\n\\t\\tgroupMatches{\\n\\t\\t\\tteam1Id\\n\\t\\t\\tteam2Id\\n\\t\\t}\\n\\t}\\n}\"}";
+                                                                                                            //+bracketID.substring(1,37)+
+            String requestForNextRound="{\"query\":\"mutation {\\n\\tgenerateNextRoundSwiss(bracketId: \\\""+bracketID+"\\\"){\\n\\t\\tgroupMatches{\\n\\t\\t\\tteam1Id\\n\\t\\t\\tteam2Id\\n\\t\\t}\\n\\t}\\n}\"}";
             response = ApiUtils.request(ConfigurationReader.get("dev4URI"), requestForNextRound);
             jsonPath = response.jsonPath();
             log.info(response.prettyPrint());

@@ -17,7 +17,7 @@ Feature: Swiss Tests
   @swiss
 Scenario: Run Specific Tournament
   Given user sign in with valid credentials "axieOrganizer" username "Test1234" password in "dev4URI" envirenment
-  And   Enter specific tournament info "548116de-ae87-4848-99f1-2439f7c25014" tournamentID "00f5bd40-aee1-41e9-ab6a-e1d440dafc68" bracketID for axieTournament
+  And   Enter specific tournament info "dd672552-93a2-4602-8100-b55f9ed6ff73" tournamentID "a3d181cb-f170-4daa-9fd3-08f594f99b26" bracketID for axieTournament
   And  Add 4096 participant to tournament
   Given user sign in with valid credentials "axieOrganizer" username "Test1234" password in "dev4URI" envirenment
   And organizer generate first swiss bracket
