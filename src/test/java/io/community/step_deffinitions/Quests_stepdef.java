@@ -177,7 +177,23 @@ public class Quests_stepdef {
 
     }
 
+    @When("admin create new quest as {string}  onChain  {string} tokenID  {int} amount {string} user type")
+    public void admin_create_new_quest_as_on_chain_token_id_amount_user_type(String questType, String tokenID, Integer amount, String userType) {
+        String questName="CreatedForAutomationOnChain"+faker.name().firstName();
 
+        String request="{\"query\":\"mutation{\\n\\tcreateQuest(\\n\\t\\tquest: {\\n\\t\\t\\tname:\\\""+questName+"\\\",\\n\\t\\t\\ticonUrl: \\\"https://assets.communitygaming.io/quest/icon/123asdtest.png\\\"\\n\\t\\t\\tsponsoredName:\\\"mrBrooks\\\"\\n\\t\\t\\tstartDate:\\\"2022-05-12T00:00:00.000Z\\\",\\n\\t\\t\\tendDate: \\\"2088-03-28T00:00:08.454Z\\\",\\n\\t\\t\\ttype: "+questType+",\\n\\t\\t\\tactions:[\\n\\t\\t\\t\\t{\\n\\t\\t\\t\\t\\tname: \\\"login  standard 1 day\\\",\\n\\t\\t\\t\\t\\tactionType:LOGIN,\\n\\t\\t\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\""+tokenID+"\\\",\\n\\t\\t\\t\\t\\t\\tamount: "+amount+"\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t\\tschedule:{\\n\\t\\t\\t\\t\\t\\ttype:ACTION_COUNT,\\n\\t\\t\\t\\t\\t\\tactionCount: 1\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\t}\\n\\t\\t\\t]\\n\\t\\t\\tuserFilter: {\\n\\t\\t\\t\\tuserType: "+userType+"\\n\\t\\t\\t}\\n\\t\\t\\treward:{\\n\\t\\t\\t\\t\\t\\ttype:COIN,\\n\\t\\t\\t\\t\\t\\tcurrencyId: \\\""+tokenID+"\\\",\\n\\t\\t\\t\\t\\t\\tamount: "+amount+"\\n\\t\\t\\t\\t\\t}\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t}\\n\\t){\\n\\t\\tid\\n\\t}\\n}\"}";
+
+    }
+    @When("user add action for quest")
+    public void user_add_action_for_quest() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    @Then("user should be able to get quest reward")
+    public void user_should_be_able_to_get_quest_reward() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
 
 
 }

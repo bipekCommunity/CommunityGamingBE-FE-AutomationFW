@@ -49,7 +49,8 @@ public class Login_stepdef {
 
     @Given("user sign in with valid credentials {string} username {string} password in {string} envirenment")
     public void user_sign_in_with_valid_credentials_username_password_in_envirenment(String username, String password, String env) {
-        String body="{\"query\":\"query {\\n  signInUser(username: \\\""+username+"\\\", password: \\\""+password+"\\\") {\\n    accessToken\\n  }\\n}\\n\\n\"}";
+        String body="{\"query\":\"query {\\n  signInUser(username: \\\""+username+"\\\", password:\\\""+password+"\\\"\\n\\tcaptchaResponseToken:\\\"8ff59b3f88294dc888fb1e07170ffc9d\\\") {\\n    accessToken\\n  }\\n}\\n\\n\"}";
+
         response = given().accept(ContentType.JSON).body(body).when()
                 .post(ConfigurationReader.get(env));
         jsonPath =response.jsonPath();

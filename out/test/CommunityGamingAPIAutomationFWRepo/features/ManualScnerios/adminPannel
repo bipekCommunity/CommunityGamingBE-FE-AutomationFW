@@ -1,0 +1,46 @@
+ Scenario: getFinancialTransaction
+    Given Admin queries by (questName, userName, startDate, EndDate) using the getFinancialTransaction endpoint.
+    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
+
+    Given Admin queries by getFinancialTransaction endpoint (questName, userName, startDate, EndDate, sort(DESC-ASC)).
+    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
+
+    Given Admin queries by getFinancialTransaction endpoint (questName, userName, startDate, EndDate, sort(DESC-ASC),SortBy(userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName).
+    Then   search result should be ( userId, amount, amountInUSD, currencyId, chain ,from, id, originName, status, to, userId, financialTransactionType originId, originName) is complete.
+
+    Given Admin Admin queries by getFinancialTransaction endpoint(questName, userName, startDate, EndDate, sort(DESC-ASC),SortBy("EMPTY")
+    Then  searchResult should be(Property must not null or empty!",)
+Scenario: applyToBeOrganizer  user should be able to send requests to be an organizer entering correct data
+  When user enters email region discodName interestsGames tournamentExperiences familiarCryptocurrency averageTournamentParticipants username organizerGrant and apply to be an organizer
+  Then Goggle sheet should be created correctly
+
+Scenario:  : applyToBeOrganizer  user should be able to send requests to be an organizer entering  missing data
+
+  When User submits a request with missing userName
+  Then User should get error message
+  When User submits a request with missing email
+  Then User should get error message
+  When User submits a request with missing region
+  Then User should get error message
+  When User submits a request with missing discodName
+  Then User should get error message
+  When User submits a request with missing interestsGames
+  Then User should get error message
+  When User submits a request with missing tournamentExperiences
+  Then User should get error message
+  When User submits a request with missing familiarCryptocurrency
+  Then User should get error message
+  When User submits a request with missing averageTournamentParticipants
+  Then User should get error message
+  When User submits a request with missing organizerGrant
+  Then User should get error message
+
+  Scenario:  : applyToBeOrganizer  user should not be able to send requests to be an organizer entering  incorrect email
+    When User submits a request with incorrect email format (testgmail.com /@gmail.com)
+    Then User should get error message
+
+  Scenario: applyToBeOrganizer Nonuser cannot apply to be an organizer
+    When Nonuser try to send request to be an organizer request
+    Then Nonuser should get error message
+
+
