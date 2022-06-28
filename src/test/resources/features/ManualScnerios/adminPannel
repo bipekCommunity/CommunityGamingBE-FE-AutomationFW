@@ -210,3 +210,108 @@ Scenario: Creating Over 7 days daily quest
   Scenario: Creating quest on same day
     When Admin try to create another daily quest on the date of the previously created daily quest
     Then Admin should get error message
+
+  13-15.05
+  Scenario: Admin Permission checkInParticipants CGB-512
+
+  Given Organizer creates a tournament
+  And Users join to tournament
+  When Organizer gives manage Permissions to a user
+  Then Admin User can be able to see check in participant status
+
+
+    Scenario: Admin Permission checkInParticipants CGB-512 (neagtive)
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer doesn't give manage Permissions to a user
+      Then Admin User can not be able to see check in participant status
+
+
+    Scenario: Admin Permission exchangeParticipantsBetweenActiveAndWaitlist CGB-512
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer gives manage Permissions to a user
+      Then Admin User can be able to do exchange Participants Between Active And Waitlist
+
+    Scenario: Admin Permission exchangeParticipantsBetweenActiveAndWaitlist CGB-512(negative)
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer doesn't give manage Permissions to a user
+      Then Admin User can not be able to do exchange Participants Between Active And Waitlist
+
+    Scenario: Admin Permission removeParticipant CGB-521
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer gives manage Permissions to a user
+      Then Admin User can be able to removeParticipant
+
+    Scenario: Admin Permission fillUpActiveList CGB-538
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer gives manage Permissions to a user
+      Then Admin User can be able to fillUpActiveList
+
+    Scenario: Admin Permission fillUpActiveList CGB-538 (negative)
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer doesn't give manage Permissions to a user
+      Then Admin User can not be able to fillUpActiveList
+
+    Scenario: Admin Permission fillUpActiveList CGB-538 negative
+
+      Given Organizer creates a tournament
+      And Users join to tournament
+      When Organizer gives manage Permissions to a user
+     And  Tournament admin try to fill up full Activelist
+      Then Admin should get Active participant list is full message
+
+      Scenario: Returning Round Robin Group Participant List for Bracket CGB-533
+        Given Organizer creates a tournament RR
+        And Teams join tournament
+        And Organizer Seed brackets
+        When organizer sen request to getGroupsRR
+        Then Groups should be listed
+        When Organizer reset all brackets
+        And Oranizer seed bracket again
+        When organizer sen request to getGroupsRR
+        Then New group should be listed
+
+    Scenario: Tournament Participant Caching  CGB-493
+      Given Organizer creates a tournament
+      And Teams join tournament
+      When organizer send request to getTournamentParticipants
+      Then Result should be listed
+      When Organizer remove any user using removeParticipant func.
+      When organizer send request to getTournamentParticipants
+      Then New result should not contains deleted participant info
+
+
+  Scenario: Returning participant information for Winners tab
+      Given user sign in with valid credentials "axieOrganizer" username "Test1234" password in "dev4URI" envirenment
+      When Organizer create <maxTeam> <maxParticipantCount>  <rounCount> Swiss tournament "dev4URI" env.
+      And  Add 16 participant to tournament
+      Given user sign in with valid credentials "axieOrganizer" username "Test1234" password in "dev4URI" envirenment
+      And organizer generate first swiss bracket
+      And  Organizer starts tournament
+      And  Organizer enter the scores and generate next bracket for 4 round 16 participants
+      When user try to get getTournamentWinnersInformation function
+      Then list should be return null
+      When organizer finished tournament
+      And user get getTournamentWinnersInformation function
+      Then Winner list should be appear
+
+
+Scenario:Processing partially ready matchs for matchroom for Swiss Bracket CGB-499
+  Given Organizer creates a tournament
+  And   users join to tournament
+  And   Organizer seed brackets
+  And   Organizer starts tournament
+  When   A user send request to setParticipantReadyForMatchRoom
+  And   Opponent doesn't request to setParticipantReadyForMatchRoom
+  Then  Opponent should be Disqualified after 5 minutes

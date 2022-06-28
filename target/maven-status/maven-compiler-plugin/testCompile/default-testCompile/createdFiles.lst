@@ -1,0 +1,16 @@
+io/community/pages/BasePage.class
+io/community/utilities/BrowserUtils.class
+io/community/utilities/Driver.class
+io/community/step_deffinitions/SwissTests_stepdef.class
+io/community/utilities/ApiUtils.class
+io/community/step_deffinitions/stepdef.class
+io/community/step_deffinitions/AdminPanel_stepdef.class
+io/community/step_deffinitions/MuitipleTraslation_stepdef.class
+io/community/step_deffinitions/Login_stepdef.class
+io/community/step_deffinitions/Tournament_stepdef.class
+io/community/utilities/BrowserUtils$1.class
+io/community/step_deffinitions/Users_stepdef.class
+io/community/step_deffinitions/Quests_stepdef.class
+io/community/utilities/ConfigurationReader.class
+io/community/runner/TestRunner.class
+io/community/step_deffinitions/Hooks.class

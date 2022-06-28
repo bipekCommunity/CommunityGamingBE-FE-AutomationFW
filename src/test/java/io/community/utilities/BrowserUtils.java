@@ -52,6 +52,10 @@ public class BrowserUtils {
         return elemTexts;
     }
 
+    public static boolean checkElementsText(List<WebElement> list,String text) {
+     return getElementsText(list).contains(text);
+    }
+
     /**
      * Extracts text from list of elements matching the provided locator into new List<String>
      *
@@ -92,6 +96,18 @@ public class BrowserUtils {
     public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
         WebDriverWait wait = new WebDriverWait(Driver.get(), timeToWaitInSec);
         return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static void clickElement(WebElement element){
+
+        waitForVisibility(element,10);
+        element.click();
+    }
+
+    public static void sendKeys(WebElement element,String text){
+
+        waitForVisibility(element,10);
+        element.sendKeys(text);
     }
 
     /**

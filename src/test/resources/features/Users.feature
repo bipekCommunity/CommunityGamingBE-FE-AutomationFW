@@ -28,4 +28,8 @@ Feature: Users Tests
    Given useraddd
 
 
-
+Scenario: Return Tournament Waitlist Participant Page Which Contains Specific Team CGB-550
+  When user call  getTournamentWaitListParticipants functions without userID
+  Then Selected page should be return
+  When user call getTournamentWaitListParticipants funvtion with userID
+  Then user's page should be return

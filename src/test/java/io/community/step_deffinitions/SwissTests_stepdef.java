@@ -30,12 +30,15 @@ public class SwissTests_stepdef {
  List<String>participantList=new ArrayList<>();
 
 
-    @When("Organizer create {int} {int}  {int} Swiss tournament {string} env.")
-    public void organizer_create_swiss_tournament(Integer maxTeam, Integer maxParticipantCount, Integer roundCount,String env) {
+
+
+
+    @When("Organizer create {int} {int}  {int} {string} Swiss tournament {string} env.")
+    public void organizer_create_swiss_tournament_env(Integer maxTeam, Integer maxParticipantCount, Integer roundCount,String TournamentName,String env) {
         alias =faker.name().lastName()+faker.name().firstName();
         System.out.println("alias = " + alias);
 
-        String request="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+alias+"\\\"\\n   \\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: 1\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2023-11-19T21:59:08.454Z\\\"\\n    name: \\\"createdForBigLoadTest\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"axie_infinity\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 421\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t " +
+        String request1="{\"query\":\"mutation {\\n  createTournament(data: {\\n    alias: \\\""+alias+"\\\"\\n   \\n    externalBrackets: false,\\n    externalDiscordChannelUrl: \\\"\\\"\\n    teamSize: 1\\n    tournamentType: OFF_CHAIN\\n    deadline: \\\"2023-11-19T21:59:08.454Z\\\"\\n    name: \\\""+TournamentName+"\\\"\\n    description: \\\"asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd\\\"\\n    gameId: \\\"axie_infinity\\\"\\n    buyInFee: 0\\n    prizeDistribution: [80,19,0,0,0,0,0]\\n    prizeDescription: \\\"Prizing will be sent out immediately after the tournament ends using PayPal.\\\"\\n    prizeTarget: 421\\n    isGameIdRequired: false\\n    isRegistrationQuestionsRequired: false\\n    isCheckinRequired: false\\n    registrationQuestions: [\\n\\t\\t\\t{question: \\\"adsasd\\\", type: \\\"FILE\\\", required: true, isPublic: true, options: []},\\n\\t\\t\\t{question: \\\"asdadasd\\\", type: \\\"TEXT\\\", required: false, isPublic: true, options: []}\\n\\t\\t]\\n    streamLinks: {}\\n    tokenId: \\\"fiat\\\"\\n    unlisted: false\\n    isSelfReportAllowed: false\\n    isSubstitutePlayersEnabled: false\\n    maxSubstitutePlayerCount: 0\\n \\t " +
                 " maxTeams: "+maxTeam+", \\n   " +
                 " bracketList: [\\n   {\\n\\t\\t\\n     " +
                 "  \\n\\t\\t\\t\\tbracketName: \\\"bigBracket\\\",\\n      " +
@@ -46,7 +49,7 @@ public class SwissTests_stepdef {
                 "troundCount:"+roundCount+",\\n\\t\\t\\t\\" +
                 "tnumberOfTeams:"+maxParticipantCount+"\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tswissScoringRule:{\\n\\t\\t\\t\\t\\twin:3,draw:1,lose:0\\t\\n\\t\\t\\t\\t}\\t\\n\\t\\t\\t}\\n    }\\n\\t\\t\\n\\n\\t\\t\\t\\n\\t\\t]\\n  }) {\\n    id\\n\\t\\t\\tbracketList{\\n\\t\\t\\tid\\n\\t\\t}\\n  }\\n}\"}";
 
-                response= ApiUtils.request(ConfigurationReader.get(env),request);
+                response= ApiUtils.request(ConfigurationReader.get(env),request1);
                 jsonPath=response.jsonPath();
                 tournamentID=jsonPath.getString("data.createTournament.id");
                 bracketID=jsonPath.getString("data.createTournament.bracketList.id");
@@ -147,14 +150,14 @@ public class SwissTests_stepdef {
         for (int i = 1; i <= round; i++) {
             for (int l=0;l<(participant/2);l++) {
                                                                                                     //+bracketID.substring(1,37)+
-               String requestForMatchID = "{\"query\":\"query{\\n\\t getRoundSwissPage(bracketId:\\\""+bracketID.substring(1,37)+"\\\", ,roundIndex:"+i+",page:"+l+",size:1) \\n\\t{\\n\\tbracketId\\n\\t\\tcontentPage{\\n\\t\\t\\tcontent{\\n\\t\\t\\t\\tid\\n\\t\\t\\t}\\n\\t\\t}\\n\\t}\\n\\t\\n}\"}";
+               String requestForMatchID = "{\"query\":\"query{\\n\\t getRoundSwissPage(bracketId:\\\""+bracketID.substring(1,37)+"\\\", ,roundIndex:"+i+",page:"+l+",size:2) \\n\\t{\\n\\tbracketId\\n\\t\\tcontentPage{\\n\\t\\t\\tcontent{\\n\\t\\t\\t\\tid\\n\\t\\t\\t}\\n\\t\\t}\\n\\t}\\n\\t\\n}\"}";
 
                 //String requestForMatchID="{\"query\":\"query{\\n\\tgetRoundSwiss(bracketId:\\\""+bracketID.substring(1,37)+"\\\", roundIndex: "+i+") {\\n\\t\\tgroupMatches{\\n\\t\\t\\tid\\n\\t\\tteam1Id\\n\\t\\t\\tteam2Id\\n\\t\\t}\\n\\t\\troundStatus\\n\\t}\\n}\"}";
                 response = ApiUtils.request(ConfigurationReader.get("dev4URI"), requestForMatchID);
                 jsonPath = response.jsonPath();
               //  log.info(response.prettyPrint());
-                matchID.add(jsonPath.getString("data.getRoundSwissPage.contentPage.content.id"));
-               // System.out.println("matchID.toString() = " + matchID.toString());
+                matchID.add(jsonPath.getString("data.getRoundSwissPage.contentPage.content"));
+               System.out.println("matchID.toString() = " + matchID.toString());
             }
 
 

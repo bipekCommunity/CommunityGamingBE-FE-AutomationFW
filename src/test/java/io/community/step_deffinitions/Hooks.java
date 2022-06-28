@@ -2,6 +2,7 @@ package io.community.step_deffinitions;
 
 import io.community.utilities.ConfigurationReader;
 import io.community.utilities.Driver;
+import io.community.utilities.Environment;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -20,7 +21,7 @@ public class Hooks {
     @Before("@ui")
     public void setUp(){
 
-        Driver.get().get( ConfigurationReader.get("url"));
+        Driver.get().get(Environment.URL);
         Driver.get().manage().window().fullscreen();
         Driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
